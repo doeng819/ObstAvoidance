@@ -73,12 +73,14 @@ void loop()
 	long RangeInInches;
 	long RangeInCentimeters;
 	ultrasonic.DistanceMeasure();// get the current signal time;
-    RangeInInches = ultrasonic.microsecondsToInches();//convert the time to inches;
+        RangeInInches = ultrasonic.microsecondsToInches();//convert the time to inches;
 	RangeInCentimeters = ultrasonic.microsecondsToCentimeters();//convert the time to centimeters
-	Serial.println("The distance to obstacles in front is: ");
-	Serial.print(RangeInInches);//0~157 inches
-	Serial.println(" inch");
+	//Serial.println("The distance to obstacles in front is: ");
+	//Serial.print(RangeInInches);//0~157 inches
+	//Serial.println(" inch");
 	Serial.print(RangeInCentimeters);//0~400cm
 	Serial.println(" cm");
 	delay(100);
-}
+        //delay(1000);
+}	
+
