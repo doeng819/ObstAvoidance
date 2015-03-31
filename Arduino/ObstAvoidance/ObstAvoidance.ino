@@ -51,11 +51,14 @@ boolean Sensor_Detect_Obstacle(void)
   ultrasonic.DistanceMeasure();// get the current signal time;
   RangeInCentimeters = ultrasonic.microsecondsToCentimeters();//convert the time to centimeters
 
-  Serial.print("Sensor_Detect_Obstacle :");
-  Serial.println(RangeInCentimeters);
+  //  Serial.print("Sensor_Detect_Obstacle :");
+  //  Serial.println(RangeInCentimeters);
 
   if (RangeInCentimeters <= COLLISION_THRES)
+  {
+    Serial.println("Obstacle detected!");
     return true;
+  }
   else
     return false;
 }
@@ -74,20 +77,20 @@ Servo myservo;  // create servo object to control a servo
 //CurPos 4: 180 degrees (right)
 const int CurPosMax = 5;
 const int CenterPos = 2;
-const int CurPosArray[] = {0,45,90,135,180};
+const int CurPosArray[] = {0, 45, 90, 135, 180};
 
 void Sensor_TurnToPos(int CurPos)
 {
   myservo.write(CurPosArray[CurPos]);          // tell servo to go to position in variable 'pos'
   delay(1500);                       // waits for the servo to reach the position
 
-  Serial.print("Sensor_TurnToPos :");
-  Serial.println(CurPos);
+  //  Serial.print("Sensor_TurnToPos :");
+  //  Serial.println(CurPos);
 }
 
-void Vehicle_ResumeMove(void)
+void Vehicle_ResumeFowardMove(void)
 {
-  Serial.println("Vehicle_ResumeMove :");
+  Serial.println("Vehicle_ResumeFowardMove :");
 }
 
 void Vehicle_StopMove(void)
@@ -114,6 +117,7 @@ void loop()
   boolean ObstacleFlag;
   int CurPos;
 
+  Sensor_TurnToPos(CenterPos);
   ObstacleFlag = Sensor_Detect_Obstacle();
 
   if (ObstacleFlag == true)
@@ -146,8 +150,9 @@ void loop()
       Serial.println("Vehicle will turn 180 and exit :");
       Sensor_TurnToPos(CenterPos);
       Vehicle_TurnToPos(180);
-      Vehicle_ResumeMove();
     }
+
+    Vehicle_ResumeFowardMove();
   }
 
 }
