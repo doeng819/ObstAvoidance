@@ -3,6 +3,7 @@
 #include <Servo.h>
 
 #define SRVPIN 6
+//#define SRVPIN 9
 
 //////////////////////////////////////////
 /// ultrasonic sensor
