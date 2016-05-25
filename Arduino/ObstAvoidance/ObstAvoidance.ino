@@ -2,6 +2,8 @@
 #include "Arduino.h"
 #include <Servo.h>
 
+#define SRVPIN 6
+
 //////////////////////////////////////////
 /// ultrasonic sensor
 //////////////////////////////////////////
@@ -41,6 +43,7 @@ long Ultrasonic::microsecondsToCentimeters(void)
 //VH_RADIUS 30 //回転半径30cm
 //sqrt(2)*VH_RADIUS = 42.4264068712cm
 const long COLLISION_THRES = 42;
+//const long COLLISION_THRES = 100;
 //ultrasonic instance declared before use
 Ultrasonic ultrasonic(7);
 
@@ -51,8 +54,8 @@ boolean Sensor_Detect_Obstacle(void)
   ultrasonic.DistanceMeasure();// get the current signal time;
   RangeInCentimeters = ultrasonic.microsecondsToCentimeters();//convert the time to centimeters
 
-  //  Serial.print("Sensor_Detect_Obstacle :");
-  //  Serial.println(RangeInCentimeters);
+ //   Serial.print("Sensor_Detect_Obstacle :");
+ //   Serial.println(RangeInCentimeters);
 
   if (RangeInCentimeters <= COLLISION_THRES)
   {
@@ -81,8 +84,8 @@ const int CurPosArray[] = {0, 45, 90, 135, 180};
 
 void Sensor_TurnToPos(int CurPos)
 {
-  myservo.write(CurPosArray[CurPos]);          // tell servo to go to position in variable 'pos'
-  delay(1500);                       // waits for the servo to reach the position
+  myservo.write(CurPosArray[CurPos]);   // tell servo to go to position in variable 'pos'
+  delay(1500);                          // waits for the servo to reach the position
 
   //  Serial.print("Sensor_TurnToPos :");
   //  Serial.println(CurPos);
@@ -107,7 +110,7 @@ void Vehicle_TurnToPos(int CurPos)
 
 void setup()
 {
-  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
+  myservo.attach(SRVPIN);// attaches the servo on pin to the servo object
   Serial.begin(9600);
 }
 
